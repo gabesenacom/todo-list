@@ -1,0 +1,18 @@
+Seção Projetos
+
+- Tenha um module para controlar esta seção(armazena valores, ex: nav's, funções, etc)
+- Tenha uma função createItem(text, nav, icon = null) para criar items das nav's. O icon é um obj: {className, attrs: [[]]}
+ > cria um elemento li na nav informada
+ > insere o texto no elemento criado
+ > se tiver icone, chama a função externa iconMaker(className, parent, attrs). Ela retornará um elemento
+- Tenha uma função actionItem(nav) que será responsável por controlar o click dos elementos. Ela terá algumas funções: create, remove, openProject e listen.
+  > Na função create: ao ser clicada, aparecerá um elemento para digitar o nome do projeto que será criado. Será adicionado um listener no botão chamado Save. Ao clicar nele, um elemento li será criado usando a função createItem.
+  > Na função remove, o item clicado será removido. Se o projeto estiver aberto, será enviado o projeto Inbox(Projeto Padrão) para o modulo externo responsável atualizar os dados
+  > Na função openProject, será enviado o novo nome do projeto que é para abrir. O modulo externo responsável por abrir os projetos, atualizará os dados assim que o novo projeto chegar.
+  > Na função listen, será adicionado um evento ouvinte nos cliques da nav. 
+    - Verificará se é um clique em alguma li. 
+      - Se sim, verificará o tipo de click: se foi clique no icone de lixeira: chama remove.
+      - Se for click no botão de criar: chama create.
+      - Se for click que não se encaixa em nenhuma das outras:
+        - ignora se for um click de um projeto já aberto.
+        - caso seja um projeto diferente, envia a solicitação para o modulo externo responsável atualizar.

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Todo List</title>
+  <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+  <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+  <link rel="stylesheet" type="text/css" href="styles/fontawesome/css/all.min.css" />
+  <!--Work Sans font primary, Open Sans font secondary-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Work+Sans:wght@300;400&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <h2><a href="#projects">Projects list</a></h2>
+    <h2><a href="#todos">You are on <span data-type="project-open">To buy</span>
+        project.</a></h2>
+    <h2><a href="#notes">Notes</a></h2>
+
+  </header>
+
+  <main id="app">
+    <section id="projects">
+
+
+      <nav id="projects-shortcut" class="basic-nav">
+        <li data-project-name="inbox">Inbox</li>
+        <li data-project-name="to-buy" data-type="project-open" selected><i
+            class="fas fa-map-marker neutral-icon"></i>
+          To buy</li>
+      </nav>
+
+      <div class="projects-content">
+        <h3>Projects</h3>
+
+        <nav id="projects-list" class="basic-nav">
+          <li><i class="fas fa-trash-alt danger-icon hidden" trash></i> Personal
+            life</li>
+          <li><i class="fas fa-trash-alt danger-icon hidden" trash></i> To buy</li>
+          <li id="project-create-btn"><i class="fas fa-plus success-icon"></i>
+            Create new
+            project</li>
+
+          <li id="create-editor">
+            <input type="text" class="custom-input" name="project-name"
+              placeholder="Insert project name here">
+            <button id="project-add-btn" class="btn action-btn"><i class="fas fa-plus success-icon"></i>
+              Add</button>
+          </li>
+        </nav>
+      </div>
+
+    </section>
+    <section id="todos">
+      <nav id="filter-tags" class="basic-nav">
+        <li>Today</li>
+        <li>Tomorrow</li>
+        <li><i class="fas fa-calendar-day"></i> Select date</li>
+        <li><i class="fas fa-angle-double-up"></i> Select priority</li>
+      </nav>
+
+      <ul id="todo-list">
+        <li>
+          <i class="fas fa-angle-double-up
+          todo-priority-icon p4"></i>
+          <div class="todo-information">
+            <p class="todo-name">Ligar geladeira</p>
+            <small class="todo-date">13 mai</small>
+          </div>
+          <i class="fas fa-square todo-checkbox"></i>
+        </li>
+        <li>
+          <i class="fas fa-angle-double-up
+          todo-priority-icon p3"></i>
+          <div class="todo-information">
+            <p class="todo-name">Armazenar feijão na geladeira</p>
+            <small class="todo-date">12 mai</small>
+          </div>
+          <i class="fas fa-square todo-checkbox"></i>
+        </li>
+        <li>
+          <i class="fas fa-angle-double-up
+          todo-priority-icon p2"></i>
+          <div class="todo-information">
+            <p class="todo-name">Desligar geladeira</p>
+            <small class="todo-date">13 mai</small>
+          </div>
+          <i class="fas fa-square todo-checkbox"></i>
+        </li>
+        <li>
+          <i class="fas fa-angle-double-up
+          todo-priority-icon p1"></i>
+          <div class="todo-information">
+            <p class="todo-name">Comprar massa de pastel</p>
+            <small class="todo-date">10 mai</small>
+            <small class="summary">description</small>
+            <p class="todo-description">Em outros locais é mais caro, então...</p>
+            <div>
+              <button class="btn action-btn"><i class="fas fa-folder neutral-icon"></i>
+                Move</button>
+              <button class="btn action-btn"><i class="fas fa-edit neutral-icon"></i>
+                Edit</button>
+              <button class="btn action-btn danger-btn"><i class="fas fa-trash-alt danger-icon"></i>
+                Remove</button>
+            </div>
+          </div>
+          <i class="fas fa-square todo-checkbox"></i>
+        </li>
+
+        <li id="todo-maker" class="create-item">
+          <i class="fas fa-plus success-icon"></i>
+          <div>
+            <small>click here to</small>
+            <p>Create new todo</p>
+          </div>
+        </li>
+
+        <li id="todo-editor">
+          
+          <div class="todo-editor-card text">
+            <small class="summary">todo name</small>
+            <input type="text" class="custom-input" name="todo-name"
+              placeholder="insert here the todo name">
+            <small class="summary">description</small>
+            <textarea class="todo-create-description custom-input" name="todo-description" placeholder="Insert todo description here"></textarea>
+          </div>
+          <div class="todo-priority-editor todo-editor-card priority">
+            <i class="fas fa-angle-double-up
+          todo-priority-icon p1"></i>
+            <div>
+              <small class="summary">select priority</small>
+              <p>Normal</p>
+            </div>
+          </div>
+          <div class="todo-date-editor todo-editor-card date">
+            <i class="fas fa-calendar-day"></i>
+            <div>
+              <small class="summary">select date</small>
+              <p>20 jan</p>
+            </div>
+          </div>
+          <button class="btn action-btn"><i class="fas fa-plus"></i>
+            Save</button>
+        </li>
+      </ul>
+    </section>
+    <section id="notes">
+
+      <div class="todo-information">
+        <p class="project-name">To buy</p>
+        <p class="todo-name">Comprar massa de pastel</p>
+        <small class="todo-date">10 mai</small>
+      </div>
+
+      <ul id="notes-list">
+
+        <div class="todo-note todo-information">
+          <p class="note-text">Comprar no supermercado que é barato.</p>
+
+          <div class="note-information">
+            <button class="btn action-btn"><i class="fas fa-edit neutral-icon"></i>
+              Edit</button><button class="btn action-btn danger-btn"><i class="fas fa-trash-alt danger-icon"></i>
+              Remove</button>
+            <small class="todo-date">10 mai</small>
+          </div>
+
+        </div>
+
+        <li id="note-maker" class="create-item">
+          <i class="fas fa-plus success-icon"></i>
+          <div>
+            <small>click here to</small>
+            <p>Add new note</p>
+          </div>
+        </li>
+
+        <li class="note-editor">
+          <textarea class="custom-input" placeholder="Insert note here" name="note-text"
+            autofocus>Comprar no supermercado que é barato.</textarea>
+          <button class="btn action-btn"><i class="fas fa-plus"></i>
+            Save</button>
+        </li>
+
+      </ul>
+    </section>
+  </main>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>

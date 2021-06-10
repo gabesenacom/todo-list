@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Todo List</title>
+  <link rel="stylesheet" type="text/css" href="styles/reset.css" />
+  <link rel="stylesheet" type="text/css" href="styles/styles.css" />
+  <link rel="stylesheet" type="text/css" href="styles/fontawesome/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&family=Work+Sans:wght@300;400&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <h2><a href="#projects">Projects list</a></h2>
+    <h2><a href="#todos">You are on <span data-type="project-open"></span>.</a></h2>
+    <h2><a href="#notes">Notes</a></h2>
+
+  </header>
+
+  <main id="app">
+    <section id="projects">
+
+
+      <nav id="projects-shortcut" class="basic-nav">
+      </nav>
+
+      <div class="projects-content">
+        <h3>Projects</h3>
+
+        <nav id="projects-list" class="basic-nav">
+          <li id="project-create-btn"><i class="fas fa-plus success-icon"></i>
+            Create new project</li>
+        </nav>
+      </div>
+
+    </section>
+
+    <section id="todos">
+      <nav id="filter-tags" class="basic-nav">
+      </nav>
+
+      <ul id="todo-list">
+      </ul>
+    </section>
+    <section id="notes">
+      <img src="image/Note taking_Flatline.svg" alt="note taking" />
+      <p class="notes-closed-text">Click in any todo to see your notes.</p>
+
+      <div class="todo-information">
+        <p class="project-name">To buy</p>
+        <p class="todo-name">Comprar massa de pastel</p>
+        <small class="todo-date">10 mai</small>
+      </div>
+
+      <ul id="notes-list">
+
+        <div class="todo-note todo-information">
+          <p class="note-text">Comprar no supermercado que é barato.</p>
+
+          <div class="note-information">
+            <button class="btn action-btn"><i class="fas fa-edit neutral-icon"></i>
+              Edit</button><button class="btn action-btn danger-btn"><i class="fas fa-trash-alt danger-icon"></i>
+              Remove</button>
+            <small class="todo-date">10 mai</small>
+          </div>
+
+        </div>
+
+        <li id="note-maker" class="create-item">
+          <i class="fas fa-plus success-icon"></i>
+          <div>
+            <small>click here to</small>
+            <p>Add new note</p>
+          </div>
+        </li>
+
+        <li class="note-editor">
+          <textarea class="custom-input" placeholder="Insert note here" name="note-text"
+            autofocus>Comprar no supermercado que é barato.</textarea>
+          <button class="btn action-btn"><i class="fas fa-plus"></i>
+            Save</button>
+        </li>
+    </section>
+  </main>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
