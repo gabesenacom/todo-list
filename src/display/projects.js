@@ -1,11 +1,17 @@
-import { createElement, makeIcon, setAttributes, getValidItem } from "./domelement_utils"
+import { createElement, makeIcon, setAttributes, getValidItem } from "./domelement_utils";
+import {
+  publish,
+  Events,
+  sendLog,
+  subscribeAccept,
+  unsubscribe
+} from "./../controller/controllers";
+import { DEFAULT_INBOX_NAME, getCurrentProject } from "./../controller/app";
 
 let shortcutNav = document.getElementById( "projects-shortcut" );
 let projectsNav = document.getElementById( "projects-list" );
-let projectOpenDisplayName = document.querySelector('[data-type="project-open"]');
-
-const DEFAULT_INBOX_NAME = "Inbox";
-let projectOpen = DEFAULT_INBOX_NAME;
+let projectOpenDisplayName = document.querySelector(
+  '[data-type="project-open"]' );
 
 const trashIcon = {
   className: "fas fa-trash-alt danger-icon hidden",
@@ -17,9 +23,8 @@ const projectOpenIcon = {
   attrs: [ "selected" ]
 };
 
-
 function displayProjectName() {
-  projectOpenDisplayName.textContent = projectOpen;
+  projectOpenDisplayName.textContent = getCurrentProject();
 }
 
 const createItem = ( text, nav, insetBefore, icon = null ) => {
@@ -39,7 +44,7 @@ const actionItem = ( nav ) => {
     if ( event.target.hasAttribute( "trash" ) )
       return remove( event.target );
 
-    let target = getValidItem( event.target, "li", ["i"] );
+    let target = getValidItem( event.target, "li", [ "i" ] );
     if ( target == null ) return;
 
     if ( target.id == "create-editor" || target.id == "project-add-btn" )
@@ -69,50 +74,56 @@ const actionItem = ( nav ) => {
   }
 
   function createProject( projectName, inputItem ) {
-    //now send request to add this project
-    // YOU CAN CREATE THIS PROJECT? YES? OK, I'LL CREATE HERE.
+    publish( Events.CREATE_PROJECT, projectName );
 
-    if ( !isValidProjectName( projectName ) ) {
-      console.log( "Oops, invalid name" );
-      return;
-    }
+    let id = subscribeAccept( Events.CREATE_PROJECT_ACCEPT, ( msg, data ) => {
+      createItem( projectName, projectsNav, true, trashIcon );
+      sendLog( `The project ${projectName} was created!` );
+      unsubscribe( id );
+    } );
 
-    createItem( projectName, projectsNav, true, trashIcon );
     inputItem.remove();
-
     let button = createElement( "li", null, "project-create-btn",
       "Create new project", nav );
     makeIcon( "fas fa-plus success-icon", button );
 
   }
 
-  function openProject( item ) {
-    console.log( "open request send.", item );
-    //send request
-    // YOU CAN OPEN THIS PROJECT {SEND PROJECT NAME}? YES? OK, I'LL OPEN HERE.
-    let beforeOpen = getShortcutItem( projectOpen );
-    if ( beforeOpen && beforeOpen.textContent != DEFAULT_INBOX_NAME )
-      beforeOpen.remove();
-    projectOpen = item;
-    displayProjectName();
-    if ( item == DEFAULT_INBOX_NAME )
-      return;
-    
+  function openProject( item, force = false ) {
+    if ( !force )
+      sendLog( `Opening ${item} project...` );
+    let lastOpen = getCurrentProject();
+    publish( Events.OPEN_PROJECT, item );
 
-    let open = createItem( item, shortcutNav, false,
-      projectOpenIcon );
-    setAttributes( open, [
-      [ "selected" ]
-    ] );
+    let id = subscribeAccept( Events.OPEN_PROJECT_ACCEPT, ( msg, data ) => {
+      let beforeOpen = getShortcutItem( lastOpen );
+      if ( beforeOpen && beforeOpen.textContent != DEFAULT_INBOX_NAME )
+        beforeOpen.remove();
+      displayProjectName();
+      if ( item == DEFAULT_INBOX_NAME )
+        return;
+
+      let open = createItem( item, shortcutNav, false,
+        projectOpenIcon );
+      setAttributes( open, [
+        [ "selected" ]
+      ] );
+      unsubscribe( id );
+    } );
+
   }
 
   function remove( item ) {
-    //now send request to remove this project
-    // YOU CAN REMOVE THIS PROJECT{send project name}? YES? OK, I WILL REMOVE HERE.
-    item.parentNode.remove();
-    if ( shortcutNav.children[ 1 ] != null && item.parentNode.textContent == shortcutNav.children[ 1 ].textContent )
-      shortcutNav.children[ 1 ].remove();
-    openProject( DEFAULT_INBOX_NAME );
+    publish( Events.REMOVE_PROJECT, item.parentNode.textContent );
+    let id = subscribeAccept( Events.REMOVE_PROJECT_ACCEPT, ( msg, data ) => {
+      sendLog( "You removed this project" );
+      item.parentNode.remove();
+      if ( shortcutNav.children[ 1 ] != null && item.parentNode.textContent ==
+        shortcutNav.children[ 1 ].textContent )
+        shortcutNav.children[ 1 ].remove();
+      openProject( DEFAULT_INBOX_NAME, true );
+      unsubscribe( id );
+    } );
   }
 
   function getShortcutItem( itemName ) {
@@ -134,7 +145,7 @@ const actionItem = ( nav ) => {
   nav.addEventListener( "click", listen );
 };
 
-createItem( projectOpen, shortcutNav, true );
+createItem( getCurrentProject(), shortcutNav, true );
 
 actionItem( shortcutNav );
 actionItem( projectsNav );

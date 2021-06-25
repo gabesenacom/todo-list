@@ -80,3 +80,18 @@ export function getValidTopParentTag( tagName, startNode ) {
     return parent;
   return getValidTopParentTag( tagName, parent.parentNode );
 }
+
+
+export const Button = ( parentNode ) => {
+
+  const buttonElement = ( parent, text, iconClass, listener ) => {
+    let button = createElement( "button", "btn action-btn", null, text,
+      parent, [ "data-btn-type", text.toLowerCase() ] );
+    makeIcon( iconClass, button );
+    if ( listener )
+      button.addEventListener( "click", listener );
+    return button;
+  }
+
+  return { buttonElement };
+};

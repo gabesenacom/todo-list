@@ -1,3 +1,5 @@
+import "./controller/app"
 import "./display/projects"
 import "./display/todo_list"
-console.log("hello");
+import "./display/notes"
+import "./display/log"

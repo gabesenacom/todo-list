@@ -72,7 +72,8 @@ h5 {
   font-size: 1.25rem;
 }
 
-small, .small-text {
+small,
+.small-text {
   font-size: 0.8rem;
 }
 
@@ -113,6 +114,10 @@ li {
 .projects-content h3 {
   margin: 1rem 0 0.5rem 0;
   color: var(--primary-color);
+}
+
+#project-create-btn i {
+  margin-right: 0.1rem;
 }
 
 .basic-nav li {
@@ -223,8 +228,8 @@ header h2:nth-child(2) {
   }
 
   #app {
-  flex-direction: column;
-}
+    flex-direction: column;
+  }
 
 }
 
@@ -319,12 +324,12 @@ header h2:nth-child(2) {
   border-radius: 1rem;
 }
 
-.note-editor textarea {
+#note-editor textarea {
   margin-bottom: 0.5rem;
 }
 
-.note-editor textarea,
-.note-editor .action-btn {
+#note-editor textarea,
+#note-editor .action-btn {
   display: block;
   width: 90%;
   max-width: 90%;
@@ -369,14 +374,16 @@ header h2:nth-child(2) {
 }
 
 .filter-form .todo-editor-card {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
-.filter-form label, .filter-form .todo-editor-card.date i {
+.filter-form label,
+.filter-form .todo-editor-card.date i {
   color: var(--primary-color) !important;
 }
 
-.filter-form input, .filter-form select{
+.filter-form input,
+.filter-form select {
   color: var(--white-color) !important;
 }
 
@@ -411,16 +418,16 @@ header h2:nth-child(2) {
   color: var(--success-color);
 }
 
-#todo-list li > i {
+#todo-list li>i {
   font-size: 2rem;
   min-width: 10%;
 }
 
-#todo-list li > i:first-child {
+#todo-list li>i:first-child {
   padding-left: .5rem;
 }
 
-#todo-list li > i:last-child {
+#todo-list li>i:last-child {
   padding-right: .5rem;
 }
 
@@ -447,7 +454,7 @@ header h2:nth-child(2) {
   color: var(--primary-color);
 }
 
-.todo-priority-icon.p1{
+.todo-priority-icon.p1 {
   color: var(--priority-p1-color);
 }
 
@@ -467,7 +474,7 @@ header h2:nth-child(2) {
   color: var(--neutral-color);
 }
 
-#todo-maker{
+#todo-maker {
   justify-content: flex-start !important;
   background-color: var(--primary-color) !important;
 }
@@ -478,33 +485,36 @@ header h2:nth-child(2) {
   align-items: center;
 }
 
-.todo-editor-card i{
+.todo-editor-card i {
   margin-right: 1rem;
   font-size: 1.6rem;
   color: var(--neutral-color);
 }
 
-.todo-editor-card select, .todo-editor-card input {
+.todo-editor-card select,
+.todo-editor-card input {
   background-color: var(--primary-color);
   font-family: var(--primary-font);
 }
 
-.todo-editor-card input, .todo-editor-card select{
+.todo-editor-card input,
+.todo-editor-card select {
   color: var(--white-color);
   display: block;
   font-size: 1.2rem;
 }
 
-.todo-editor-card input:hover, .todo-editor-card select:hover{
+.todo-editor-card input:hover,
+.todo-editor-card select:hover {
   color: var(--neutral-color);
 }
 
-#todo-editor form{
+#todo-editor form {
   display: grid !important;
   grid-template-areas: "t p"
-                        "t d"
-                        "m m"
-                        "b b";
+    "t d"
+    "m m"
+    "b b";
 }
 
 #todo-editor .action-btn {
@@ -515,25 +525,28 @@ header h2:nth-child(2) {
   grid-area: m;
 }
 
-.todo-editor-card.move{
+.todo-editor-card.move {
   justify-content: flex-end !important;
   padding-right: 1.3rem;
   margin-bottom: 1rem;
 }
 
-.todo-editor-card.move select{
- padding: 0 1.5rem;
+.todo-editor-card.move select {
+  padding: 0 1.5rem;
 }
 
 .todo-editor-card.date {
   grid-area: d;
 }
 
-.todo-editor-card.date, .todo-editor-card.priority, .todo-editor-card.text {
+.todo-editor-card.date,
+.todo-editor-card.priority,
+.todo-editor-card.text {
   margin: 1rem 0;
 }
 
-.todo-editor-card.date, .todo-editor-card.priority {
+.todo-editor-card.date,
+.todo-editor-card.priority {
   margin-right: 1rem;
 }
 
@@ -549,17 +562,18 @@ header h2:nth-child(2) {
   margin-left: 1rem;
 }
 
-.todo-editor-card.text input, .todo-editor-card.text textarea{
-   max-width: 100%;
-   min-width: 100%;
+.todo-editor-card.text input,
+.todo-editor-card.text textarea {
+  max-width: 100%;
+  min-width: 100%;
 }
 
-.todo-editor-card.text textarea{
+.todo-editor-card.text textarea {
   resize: none;
 }
 
 form {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color);
   padding: 0 0.5rem;
 }
 
@@ -567,12 +581,41 @@ form {
   background-color: var(--neutral-color) !important;
 }
 
-#todo-editor > i {
-  color: var(--primary-color); !important;
+#todo-editor>i {
+  color: var(--primary-color);
+   !important;
   font-size: 3rem !important;
   padding: 5rem 0;
 }
 
-#todo-editor > i:hover {
+#todo-editor>i:hover {
   color: var(--danger-color) !important;
+}
+
+#notes-list form {
+  background: none !important;
+}
+
+#log {
+  position: fixed;
+  bottom: 0;
+  margin: 2rem 0;
+  margin-left: 2rem;
+  width: 95%;
+  text-align: center;
+  border-radius: 2rem;
+  background-color: var(--white-color);
+  box-shadow: var(--card-shadow);
+}
+
+#log-message {
+  color: var(--primary-color);
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+@media(max-width: 47.9375rem) {
+  #log {
+    margin-left: 1rem;
+  }
 }
