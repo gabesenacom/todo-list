@@ -1,56 +1,43 @@
 import { Events, subscribeAction, actionValidator, publish } from "./../controller/controllers";
 import { importApp, exportApp, getAppData, DEFAULT_INBOX_NAME } from "./../controller/app";
+import {LocalStorageDatabase} from "./storage_type/local_storage";
 import PubSub from "pubsub-js";
 
+const STORAGE_TYPE = {
+  LOCAL_STORAGE: 1
+};
+
 function requestSave() {
-  save( getAppData() );
+  save( getAppData(), STORAGE_TYPE.LOCAL_STORAGE );
 }
 
 function requestLoad() {
-  let localData = load();
+  let localData = load( STORAGE_TYPE.LOCAL_STORAGE );
   if ( localData )
     return localData;
   return [ { name: DEFAULT_INBOX_NAME, todos: [], completedTodos: [] } ];
 }
 
-function save( data ) {
-  if ( !localStorageAvailable() ) {
-    return;
+function save( data, type ) {
+  switch ( type ) {
+  case 1:
+    return LocalStorageDatabase.saveData(data);
+  default:
+    return null;
   }
-  localStorage.setItem( "data", JSON.stringify( data ) );
 }
 
-function load() {
-  if ( !localStorageAvailable() ) {
-    return;
+function load( type ) {
+  switch ( type ) {
+  case 1:
+    return LocalStorageDatabase.loadData();
+  default:
+    return null;
   }
-  let data = localStorage.getItem( "data" );
-  if ( data == null || data == "" )
-    return;
-  let projects = JSON.parse( data );
-  if ( projects != null )
-    return projects;
-
 }
 
 function sendUpdates() {
   publish( Events.FORCE_LOAD_TODOS, {} );
 }
 
-function localStorageAvailable() {
-  try {
-    let storage = window.localStorage;
-    let test = '__storage_test__';
-    storage.setItem( test, test );
-    storage.removeItem( test );
-    return true;
-  } catch ( e ) {
-    return e instanceof DOMException && (
-        e.code === 22 ||
-        e.code === 1014 ||
-        e.name === 'QuotaExceededError' ||
-        e.name === 'NS_ERROR_DOM_QUOTA_REACHED' ) &&
-      storage.length !== 0;
-  }
-}
 export { requestSave, requestLoad, sendUpdates };
