@@ -4,6 +4,7 @@ let projectsSection = document.getElementById( "projects" );
 let todosSection = document.getElementById( "todos" );
 let notesSection = document.getElementById( "notes" );
 let sections = [ projectsSection, todosSection, notesSection ];
+let mobile = false;
 
 function showSection( section ) {
   sections.filter( ( secDOM ) => secDOM != section ).forEach( ( secDOM ) => {
@@ -28,10 +29,12 @@ function getSectionTitleByAttribute( attr, sectionID ) {
 window.addEventListener( "resize", resizeLayout );
 
 function resizeLayout() {
-  if ( window.matchMedia( "(max-width: 47.9375rem)" ).matches ) {
+  if ( window.matchMedia( "(max-width: 47.9375rem)" ).matches && !mobile) {
     showSection( todosSection );
     sendLog( "Slide to left or right to view Projects list or Notes list" );
+    mobile = true;
   } else {
+    mobile = false;
     sections.forEach( ( section ) => {
       section.classList.remove( "hidden" );
       getSectionTitleByAttribute( "href", section.id ).classList.remove(
@@ -56,7 +59,7 @@ function listenTouchSlide() {
     let positionX = ( endX - startX );
     let positionY = ( endY - startY );
 
-    if(positionY <= -12 || positionY > 10) 
+    if(positionY <= -12 || positionY > 10 || (positionX > -12 && positionX < 10)) 
       return;
     
     if ( positionX > 0 || positionX < 0 ) {
