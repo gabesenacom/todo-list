@@ -44,24 +44,32 @@ let sectionOpenTouch;
 
 function listenTouchSlide() {
 
-  let startX = 0;
+  let startX = 0, startY;
   window.addEventListener( "touchstart", ( event ) => {
     startX = event.changedTouches[ 0 ].screenX;
+    startY = event.changedTouches[ 0 ].screenY;
   } );
 
   window.addEventListener( "touchend", ( event ) => {
     let endX = event.changedTouches[ 0 ].screenX;
-    let position = ( endX - startX );
-    if ( position > 0 || position < 0 ) {
+    let endY = event.changedTouches[ 0 ].screenY;
+    let positionX = ( endX - startX );
+    let positionY = ( endY - startY );
+
+    if(positionY <= -12 || positionY > 10) 
+      return;
+    
+    if ( positionX > 0 || positionX < 0 ) {
       if ( sectionOpenTouch ) {
         sectionOpenTouch = null;
         showSection( todosSection );
         return;
       }
     }
-    if ( position > 0 )
+    
+    if ( positionX > 0 )
       sectionOpenTouch = showSection( projectsSection );
-    else if ( position < 0 )
+    else if ( positionX < 0 )
       sectionOpenTouch = showSection( notesSection );
 
   } );
