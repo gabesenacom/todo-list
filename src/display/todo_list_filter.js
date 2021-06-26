@@ -118,7 +118,7 @@ const ClearFilterItem = () => {
   function listener( date ) {
     closeFilterItemOpen();
     CONTROLLER.removeAllObjectsDisplay();
-    showTodosByFilter( () => true, getCurrentProject() );
+    showTodosByFilter( (todo) => true, getCurrentProject() );
     hide();
   }
 

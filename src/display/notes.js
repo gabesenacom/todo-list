@@ -235,13 +235,16 @@ const NoteEditor = ( note ) => {
 
   function textArea() {
     let textNote = note ? note.getText() : null;
-    createElement( "textarea", "custom-input", null, textNote,
+    let textAreaDOM = createElement( "textarea", "custom-input", null,
+      textNote,
       domElement, [ "autofocus", "" ], [ "placeholder", "Insert note here" ],
       [ "name", "note-text" ], [ "required", "" ] );
+    curretNoteOpenDOMs.push( textAreaDOM );
   }
 
   function submitButton() {
-    SaveButton( domElement );
+    let saveDOM = SaveButton( domElement );
+    curretNoteOpenDOMs.push( saveDOM.dom );
   }
 
   textArea();

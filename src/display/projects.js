@@ -6,7 +6,7 @@ import {
   subscribeAccept,
   unsubscribe
 } from "./../controller/controllers";
-import { DEFAULT_INBOX_NAME, getCurrentProject } from "./../controller/app";
+import { DEFAULT_INBOX_NAME, getCurrentProject, getProjects } from "./../controller/app";
 
 let shortcutNav = document.getElementById( "projects-shortcut" );
 let projectsNav = document.getElementById( "projects-list" );
@@ -145,8 +145,13 @@ const actionItem = ( nav ) => {
   nav.addEventListener( "click", listen );
 };
 
-createItem( getCurrentProject(), shortcutNav, true );
+function loadAllProjects() {
+  getProjects().filter( ( project ) => project != DEFAULT_INBOX_NAME ).forEach(
+    ( project ) => createItem( project, projectsNav, true, trashIcon ) );
+}
 
+createItem( getCurrentProject(), shortcutNav, true );
+loadAllProjects();
 actionItem( shortcutNav );
 actionItem( projectsNav );
 displayProjectName();

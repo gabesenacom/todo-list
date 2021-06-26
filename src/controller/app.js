@@ -1,8 +1,10 @@
-import { Events, subscribeAction, actionValidator } from "./../controller/controllers";
+import { Events, subscribeAction, actionValidator, publish } from "./controllers";
+import { requestLoad } from "./../storage/app_storage.js";
 
 const DEFAULT_INBOX_NAME = "Inbox";
 
-let projects = [ { name: DEFAULT_INBOX_NAME, todos: [], completedTodos: [] } ]; //[{name: projectName, todos: [todo, todo, todo({..., notes: [note, note, note]})]}, {...}]
+let projects = requestLoad(); //[{name: projectName, todos: [todo, todo, todo({..., notes: [note, note, note]})]}, {...}]
+
 let currentProject = DEFAULT_INBOX_NAME;
 let currentTodoNotes;
 
@@ -160,6 +162,18 @@ function getProjects() {
   }, [] );
 }
 
+function getAppData() {
+  return projects;
+}
+
+function exportApp() {
+  return JSON.stringify( projects );
+}
+
+function importApp( jsonAPP ) {
+  projects = JSON.parse( jsonAPP );
+}
+
 export {
   DEFAULT_INBOX_NAME,
   getProjects,
@@ -167,5 +181,8 @@ export {
   getFullCurrentProject,
   getTodoByData,
   getCurrentTodoNotes,
-  getCurrentProject
+  getCurrentProject,
+  exportApp,
+  importApp,
+  getAppData
 };

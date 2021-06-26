@@ -1,5 +1,6 @@
 import { Events } from "./events";
 import PubSub from "pubsub-js";
+import { requestSave } from "./../storage/app_storage.js";
 
 export function sendLog( logMessage ) {
   publish( Events.SEND_LOG, { logMessage } );
@@ -41,9 +42,10 @@ export function subscribeAction( event, acceptValidator, actionCallback ) {
     let accept = acceptValidator( data, result );
     result[ "accept" ] = accept;
 
-    if ( accept )
+    if ( accept ) {
       actionCallback( data );
-
+      requestSave();
+    }
     let acceptEvent = event + "_ACCEPT";
     publish( acceptEvent, result );
   } );

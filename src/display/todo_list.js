@@ -29,6 +29,8 @@ import {
   Events,
   sendLog,
   subscribeAccept,
+  subscribeAction,
+  actionValidator,
   unsubscribe
 } from "./../controller/controllers";
 import {
@@ -180,6 +182,7 @@ const Todo = ( name, priority, date, description, project, dataID = CONTROLLER.g
     domElement.removeAttribute( "expanded" );
     if ( !force )
       sendCloseTodo();
+
   }
 
   function sendCloseTodo() {
@@ -225,11 +228,13 @@ const Todo = ( name, priority, date, description, project, dataID = CONTROLLER.g
     RemoveButton( div, removeButtonListener, getObject() );
   }
 
-  function show( rebuild = false ) {
-    if ( isExpanded() ) {
+  function reduceTodo() {
+    if ( isExpanded() )
       setSlim();
-      return;
-    }
+
+  }
+
+  function show( rebuild = false ) {
 
     if ( !rebuild ) {
       buildDOMElement();
@@ -271,9 +276,9 @@ const Todo = ( name, priority, date, description, project, dataID = CONTROLLER.g
 
     if ( getValidItem( event.target, "button", [ "i" ] ) )
       return;
-    if ( domElement.hasAttribute( "expanded" ) )
-      show();
-    else
+    if ( domElement.hasAttribute( "expanded" ) ) {
+      reduceTodo();
+    } else
       expand();
     return;
 
@@ -358,8 +363,8 @@ const Todo = ( name, priority, date, description, project, dataID = CONTROLLER.g
 function showTodosByFilter( filter, project ) {
   let todos = CONTROLLER.getObjectsList().filter( ( todo ) => todo[ "object" ].getProject() ==
     project );
+  todos.forEach( ( todo ) => todo[ "object" ].setSlim() );
   todos = todos.filter( filter );
-
   for ( let todo of todos ) {
     todo[ "object" ].show();
   }
@@ -370,6 +375,16 @@ function listenProjectChanges() {
     removeAllTodos();
     buildAllTodos( getFullCurrentProject().todos );
   } );
+}
+
+function listenForceLoadTodos() {
+  subscribeAction( Events.FORCE_LOAD_TODOS,
+    ( data, result ) => actionValidator( result, () => true,
+      "Invalid todos values, retry again." ), ( data ) => {
+      removeAllTodos();
+      buildAllTodos( getFullCurrentProject().todos );
+    }
+  );
 }
 
 function removeAllTodos() {
@@ -385,7 +400,7 @@ function buildAllTodos( todos ) {
 }
 
 listenProjectChanges();
-
+listenForceLoadTodos();
 export {
   showTodosByFilter,
   Todo,

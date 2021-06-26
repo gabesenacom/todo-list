@@ -71,8 +71,8 @@ const ExitButton = ( parentNode, listener, refObject ) => {
 const SaveButton = ( parentNode ) => {
   const { buttonElement } = Button( parentNode );
 
-  buttonElement( parentNode, "Save", "fas fa-plus", null );
-  return { buttonElement };
+  let dom = buttonElement( parentNode, "Save", "fas fa-plus", null );
+  return { buttonElement, dom };
 };
 
 const MakerButton = ( parentNode, text, editorCallback, requestCallback ) => {
