@@ -226,11 +226,20 @@ header h2:nth-child(2) {
     display: block;
     width: 100%;
   }
-
+  #notes {
+    padding: 0 2rem;
+  }
   #app {
     flex-direction: column;
   }
 
+  #filter-tags {
+    margin: 0 0 !important;
+  }
+  
+  #todo-list li {
+    margin: 1rem 0.3rem !important;
+  }
 }
 
 .todo-information {
@@ -348,7 +357,7 @@ header h2:nth-child(2) {
   border-radius: 2rem;
   padding: 0.3rem 0.5rem;
   font-size: 1rem;
-  margin: 0 0.1rem;
+  margin: 0.2rem 0.1rem;
 }
 
 #filter-tags li i {

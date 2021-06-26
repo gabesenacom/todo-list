@@ -118,9 +118,12 @@ const Note = ( text, date, project, dataID = CONTROLLER.getObjectsList().length 
   }
 
   function getObject() {
-    return CONTROLLER.getObjectsList().filter( ( noteObj ) => noteObj[
-      "object" ].dataID == dataID )[
-      0 ].object;
+    let objectFound = CONTROLLER.getObjectsList().filter( ( noteObj ) =>
+      noteObj[ "object" ].dataID == dataID );
+    if ( objectFound.length > 0 )
+      return objectFound[ 0 ].object;
+    else
+      return null;
   }
 
   function getText() {
