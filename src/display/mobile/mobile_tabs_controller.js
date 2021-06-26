@@ -1,4 +1,4 @@
-import {sendLog} from "./../../controller/controllers";
+import { sendLog } from "./../../controller/controllers";
 
 let projectsSection = document.getElementById( "projects" );
 let todosSection = document.getElementById( "todos" );
@@ -29,9 +29,8 @@ window.addEventListener( "resize", resizeLayout );
 
 function resizeLayout() {
   if ( window.matchMedia( "(max-width: 47.9375rem)" ).matches ) {
-    console.log( "window resized" );
     showSection( todosSection );
-    sendLog("Slide to left or right to view Projects list or Notes list");
+    sendLog( "Slide to left or right to view Projects list or Notes list" );
   } else {
     sections.forEach( ( section ) => {
       section.classList.remove( "hidden" );
@@ -46,26 +45,26 @@ let sectionOpenTouch;
 function listenTouchSlide() {
 
   let startX = 0;
-  window.addEventListener("touchstart", (event) => {
-    startX = event.changedTouches[0].screenX;
-  });
+  window.addEventListener( "touchstart", ( event ) => {
+    startX = event.changedTouches[ 0 ].screenX;
+  } );
 
-  window.addEventListener("touchend", (event) => {
-    let endX = event.changedTouches[0].screenX;
-    let position = (endX - startX);
-    if(position > 0 || position < 0) {
-      if(sectionOpenTouch){
+  window.addEventListener( "touchend", ( event ) => {
+    let endX = event.changedTouches[ 0 ].screenX;
+    let position = ( endX - startX );
+    if ( position > 0 || position < 0 ) {
+      if ( sectionOpenTouch ) {
         sectionOpenTouch = null;
-        showSection(todosSection);
+        showSection( todosSection );
         return;
       }
     }
-    if(position > 0) 
+    if ( position > 0 )
       sectionOpenTouch = showSection( projectsSection );
-   else if (position < 0)
+    else if ( position < 0 )
       sectionOpenTouch = showSection( notesSection );
-    
-  });
+
+  } );
 }
 
 listenTouchSlide();

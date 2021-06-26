@@ -215,6 +215,23 @@ header h2:nth-child(2) {
   display: block;
 }
 
+#notes {
+  margin-left: 0.5rem;
+}
+
+body {
+  overflow-y: hidden;
+}
+
+#projects,
+#notes,
+#todos {
+  scrollbar-width: thin;
+  max-height: 86vh !important;
+  overflow: hidden;
+  overflow-y: visible;
+}
+
 @media(max-width: 47.9375rem) {
   header {
     flex-direction: column;
@@ -226,9 +243,7 @@ header h2:nth-child(2) {
     display: block;
     width: 100%;
   }
-  #notes {
-    padding: 0 2rem;
-  }
+
   #app {
     flex-direction: column;
   }
@@ -236,7 +251,7 @@ header h2:nth-child(2) {
   #filter-tags {
     margin: 0 0 !important;
   }
-  
+
   #todo-list li {
     margin: 1rem 0.3rem !important;
   }
