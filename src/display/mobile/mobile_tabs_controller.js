@@ -29,7 +29,13 @@ function getSectionTitleByAttribute( attr, sectionID ) {
 window.addEventListener( "resize", resizeLayout );
 
 function resizeLayout() {
-  if ( window.matchMedia( "(max-width: 47.9375rem)" ).matches && !mobile) {
+
+  if(!window.matchMedia( "(min-width: 48rem)" ).matches && mobile) {
+    console.log("keyboard is open");
+    return;
+  }
+
+  if ( window.matchMedia( "(max-width: 47.9375rem)" ).matches && !mobile ) {
     showSection( todosSection );
     sendLog( "Slide to left or right to view Projects list or Notes list" );
     mobile = true;
@@ -47,7 +53,8 @@ let sectionOpenTouch;
 
 function listenTouchSlide() {
 
-  let startX = 0, startY;
+  let startX = 0,
+    startY;
   window.addEventListener( "touchstart", ( event ) => {
     startX = event.changedTouches[ 0 ].screenX;
     startY = event.changedTouches[ 0 ].screenY;
@@ -59,9 +66,10 @@ function listenTouchSlide() {
     let positionX = ( endX - startX );
     let positionY = ( endY - startY );
 
-    if(positionY <= -12 || positionY > 10 || (positionX > -12 && positionX < 10)) 
+    if ( positionY <= -12 || positionY > 10 || ( positionX > -12 &&
+        positionX < 10 ) )
       return;
-    
+
     if ( positionX > 0 || positionX < 0 ) {
       if ( sectionOpenTouch ) {
         sectionOpenTouch = null;
@@ -69,7 +77,7 @@ function listenTouchSlide() {
         return;
       }
     }
-    
+
     if ( positionX > 0 )
       sectionOpenTouch = showSection( projectsSection );
     else if ( positionX < 0 )
