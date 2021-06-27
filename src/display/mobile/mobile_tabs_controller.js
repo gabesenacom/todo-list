@@ -35,7 +35,7 @@ function resizeLayout() {
     showSection( todosSection );
     sendLog( "Slide to left or right to view Projects list or Notes list" );
     mobile = true;
-  } else {
+  } else if(window.matchMedia( "(min-width: 48rem)" ).matches){
     mobile = false;
     sections.forEach( ( section ) => {
       section.classList.remove( "hidden" );
