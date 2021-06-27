@@ -32,7 +32,8 @@ window.addEventListener( "resize", resizeLayout );
 function resizeLayout() {
 
   if(mobile && sectionOpenTouch != todosSection && !window.matchMedia( "(max-width: 47.9375rem)" ).matches) {
-    sendLog("the section is different, so... this is a keyboard fires >> mobile", window.matchMedia( "(max-width: 47.9375rem)" ).matches);
+    sendLog(
+      "the section is different, so... this is a keyboard fires >> mobile"+window.matchMedia( "(max-width: 47.9375rem)" ).matches);
     return;
   }
 
