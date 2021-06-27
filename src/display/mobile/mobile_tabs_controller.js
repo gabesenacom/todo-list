@@ -5,6 +5,7 @@ let todosSection = document.getElementById( "todos" );
 let notesSection = document.getElementById( "notes" );
 let sections = [ projectsSection, todosSection, notesSection ];
 let mobile = false;
+let sectionOpenTouch;
 
 function showSection( section ) {
   sections.filter( ( secDOM ) => secDOM != section ).forEach( ( secDOM ) => {
@@ -30,8 +31,8 @@ window.addEventListener( "resize", resizeLayout );
 
 function resizeLayout() {
 
-  if(!window.matchMedia( "(min-width: 48rem)" ).matches && mobile) {
-    console.log("keyboard is open");
+  if(mobile && sectionOpenTouch != todosSection && !window.matchMedia( "(max-width: 47.9375rem)" ).matches) {
+    sendLog("the section is different, so... this is a keyboard fires >> mobile", window.matchMedia( "(max-width: 47.9375rem)" ).matches);
     return;
   }
 
@@ -48,8 +49,6 @@ function resizeLayout() {
     } );
   }
 }
-
-let sectionOpenTouch;
 
 function listenTouchSlide() {
 
